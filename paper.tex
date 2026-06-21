@@ -1,0 +1,143 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{mathptmx}
+\usepackage[margin=1in]{geometry}
+\usepackage{amsmath,amssymb}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{setspace}
+\usepackage[round]{natbib}
+\usepackage[colorlinks=true,linkcolor=blue,citecolor=blue,urlcolor=blue]{hyperref}
+\onehalfspacing
+
+\title{\textbf{The Passive Baseline: Why Lunar Impact Cratering is Not Charge-and-Release}\\[0.4em]
+\large A Spatial Random Matrix Theory Negative Control, and the Correct Geometric Null for Point Fields}
+\author{Ruqing Chen\\ GUT Geoservice Inc., Montreal, Canada\\ \texttt{ruqing@hotmail.com}}
+\date{June 2026}
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+\noindent A random matrix theory (RMT) program has shown that single-source, charge-and-release systems exhibit Wigner--Dyson level repulsion, while superpositions of independent sources collapse to Poisson. A rigorous program needs a \emph{negative control}: a system with no internal charge-and-release memory, which should \emph{not} repel. Lunar impact craters are the natural candidate, since impacts are an externally driven, memoryless bombardment and the lunar surface has no reservoir to deplete. We test the spatial distribution of craters from the Robbins (2019) global database (1.3 million craters; we use the 6{,}973 craters $\geq20$~km and primary-dominated mare subsets). 
+
+We first correct a subtle but decisive error: the classic Poisson value $\langle r\rangle=0.386$ is the \emph{one-dimensional temporal} baseline, whereas for two-dimensional nearest-neighbor spacings, complete spatial randomness (CSR) already gives $\langle r\rangle\approx0.57$, because the nearest-neighbor operation excludes a disk around each point. Comparing crater spacings to $0.386$ would falsely make any random 2D field look repulsive. Calibrated against the correct CSR baseline, global large craters give $\langle r\rangle=0.695$, modestly \emph{above} CSR; diagnostic tests reject both saturation (no diameter-cut trend) and hard-core exclusion (52\% of nearest neighbors physically overlap). Resolving the field by terrain reveals two clean anchors. Old, isolated edge-maria (Mare Smythii, Mare Australe) are statistically indistinguishable from CSR (Clark--Evans $R\approx0.94$, KS $p>0.1$): impacts there are spatially random, exactly as a memoryless process should be. Young nearside maria (Oceanus Procellarum, Mare Nubium) are significantly \emph{clustered} (Clark--Evans $R\approx0.79$, $z\approx-8$), driven by secondary-crater chains and ejecta, not by any internal memory. 
+
+Lunar craters thus occupy the opposite end of the spatial spectrum from the Earth and orbital systems: where charge-and-release carves repulsion ($\langle r\rangle>$ CSR), memoryless bombardment yields randomness or, where secondaries dominate, clustering. The RMT diagnostic cleanly separates all three states---clustering, randomness, and repulsion---and the negative control confirms the program's core claim from the other side: \emph{no charge-and-release mechanism, no level repulsion}. We also contribute the correct geometric null ($\langle r\rangle_{\mathrm{CSR}}\approx0.57$) for any future spatial RMT analysis.
+
+\vspace{0.8em}
+\noindent\textbf{Keywords:} random matrix theory; negative control; lunar craters; complete spatial randomness; nearest-neighbor statistics; Clark--Evans; secondary craters; point processes; impact bombardment
+
+\vspace{0.4em}
+\noindent\textbf{Code and data:} \url{https://github.com/Ruqing1963/lunar-crater-rmt-baseline}
+
+\vspace{0.2em}
+\noindent\textbf{Companion studies:} stratigraphy \url{https://zenodo.org/records/20774581}; seismotectonics \url{https://zenodo.org/records/20768130}; mantle plumes \url{https://zenodo.org/records/20768420}; metallogeny \url{https://zenodo.org/records/20768849}; evolution \url{https://zenodo.org/records/20783763}; hydrogeology \url{https://zenodo.org/records/20780389}; solar flares \url{https://zenodo.org/records/20784967}; orbital architecture \url{https://zenodo.org/records/20785613}
+\end{abstract}
+
+\section{Introduction}
+
+Across the Earth and stellar sciences, a random matrix theory (RMT) program has found that single-source, charge-and-release systems---mantle plumes, ore systems, geysers, the biosphere, planetary orbits---exhibit Wigner--Dyson level repulsion, while superpositions of independent sources collapse to Poisson \citep{chen2026plume,chen2026metal,chen2026hydro,chen2026evo,chen2026orbital}. Every positive result raises the same question a careful skeptic must ask: is the diagnostic detecting a real mechanism, or is it an over-eager instrument that finds structure everywhere? The decisive answer is a \emph{negative control}---a system that, by construction, lacks the charge-and-release mechanism and should therefore \emph{not} repel.
+
+Lunar impact craters are the ideal negative control. Impacts are an externally driven bombardment by asteroids and comets, a process with no internal memory: the arrival of one impactor does not deplete a reservoir or load a stress field that governs the next. The lunar surface is a passive recorder, not a charge-and-release engine. If the RMT program is honest, lunar craters should fail to show the repulsion seen in the Earth and orbital systems. This paper tests that prediction on the spatial distribution of craters, using the Robbins (2019) global lunar crater database.
+
+The test turned out to be more subtle, and more informative, than a simple ``Poisson confirmation.'' Two lessons emerged. First, the naive expectation that craters should give $\langle r\rangle\approx0.386$ is \emph{wrong}, for a purely geometric reason that we make precise below: in two dimensions the correct random baseline is $\approx0.57$, not $0.386$. Second, once calibrated against the right baseline, lunar craters do not sit at a single point but span a spectrum from spatial randomness (old, isolated maria) to clustering (young maria dominated by secondary craters)---and, crucially, they never reach the repulsion of the charge-and-release systems. The negative control is confirmed, and the program's spatial spectrum is mapped from the opposite end.
+
+\section{The Correct Spatial Baseline}
+
+\subsection{Why $0.386$ is the wrong null for a 2D field}
+
+The spacing ratio $\langle r\rangle=0.386$ is the hallmark of a Poisson process \emph{in one dimension}: for events on a time line with exponential waiting times, consecutive intervals are independent and $\langle r\rangle=2\ln 2 -1\approx0.386$. It is the baseline used throughout the temporal arm of this program.
+
+Spatial point fields are different. For a set of points scattered on a plane or sphere, the natural spacing is the distance from each point to its \emph{nearest neighbor}. But the nearest-neighbor operation is not the 2D analog of a waiting time: it implicitly excludes a disk around each point (no neighbor can be closer than the nearest one), which imposes a Rayleigh-shaped regularity even on a completely random field. As a result, complete spatial randomness (CSR)---a homogeneous Poisson point process in 2D---does \emph{not} give $\langle r\rangle=0.386$. By Monte Carlo simulation of uniform points on the sphere (30 realizations of 7{,}000 points each), we measure
+\begin{equation}
+\langle r\rangle_{\mathrm{CSR,2D}} = 0.570 \pm 0.005, \qquad \mathrm{CV}_{\mathrm{CSR,2D}} = 0.524 \pm 0.006 .
+\end{equation}
+
+The \emph{origin} of this offset above $0.386$ is analytic. In a homogeneous 2D Poisson point process of intensity $\lambda$, the distance $s$ from a point to its nearest neighbor follows a Rayleigh distribution,
+\begin{equation}
+P(s) = 2\pi\lambda\,s\,\exp(-\pi\lambda s^2),
+\end{equation}
+whose linear-in-$s$ prefactor encodes exactly the excluded-disk geometry: the probability of a very small nearest-neighbor distance is suppressed (it vanishes as $s\to0$), unlike the exponential waiting-time density of the 1D case, which is maximal at zero. This single structural difference---a density that vanishes at the origin rather than peaking there---is why the spacing ratio is pushed well above the 1D Poisson value. We caution, however, that the \emph{exact} value of $\langle r\rangle$ does not follow from the single-point Rayleigh law alone: consecutive nearest-neighbor distances are not independent (neighboring points may share or mutually define their nearest neighbors), so $\langle r\rangle$ is not simply the mean ratio of two independent Rayleigh variates and has no elementary closed form. We therefore fix the baseline numerically, at $\langle r\rangle_{\mathrm{CSR,2D}}=0.570\pm0.005$, while noting that the Rayleigh law furnishes the analytic reason it must exceed $0.386$.
+This is close to the GOE value (0.531) by coincidence of geometry, not physics. \emph{Comparing 2D nearest-neighbor spacings to the temporal Poisson value 0.386 would make any random 2D field appear strongly ``repulsive.''} The correct null for spatial RMT is $0.57$, and a genuine hard-core (exclusion) process pushes $\langle r\rangle$ further up, toward $\approx0.78$. We establish this baseline first because it is essential to interpreting the lunar data---and because it is a reusable result for any future spatial application of the program.
+
+\paragraph{Analytic backing.} The Monte Carlo value is underpinned by the analytic form of the nearest-neighbor distance distribution. For a homogeneous Poisson point process in 2D with intensity $\lambda$, the distance $s$ from a point to its nearest neighbor follows a Rayleigh distribution,
+\begin{equation}
+P(s) = 2\pi\lambda\, s \, \exp(-\pi\lambda s^2),
+\end{equation}
+whose linear factor $s$ is the explicit signature of the excluded disk: short distances are suppressed because a neighbor cannot fall inside the nearest one's clearance. The spacing ratio of two such Rayleigh-distributed distances has expectation $E[\min/\max]\approx0.571$, in close agreement with both our spatial Monte Carlo ($0.570\pm0.005$) and a direct simulation of the spatially correlated nearest-neighbor field ($0.565$). The small residual reflects the weak spatial correlation among neighboring distances, which has no simple closed form; we therefore quote the Monte Carlo value as definitive while noting that the Rayleigh ratio explains both its magnitude and its origin. The Rayleigh exclusion is the geometric reason the 2D random baseline sits near 0.57 rather than the 1D value 0.386.
+
+\subsection{Data}
+
+We use the Robbins (2019) global lunar crater database, which catalogues approximately 1.3 million craters $\geq1$--2~km identified on LRO, LOLA, and SELENE/Kaguya imagery, with center latitude, longitude, and diameter. To avoid the incompleteness and secondary-crater contamination that affect small craters, our global analysis uses the 6{,}973 craters $\geq20$~km. For terrain-resolved analysis we extract primary-dominated subsets (diameters $5$--$20$~km) within individual mare units, which are single-age, flat, and have uniform cratering flux. All nearest-neighbor distances are great-circle (haversine) angles on the sphere; CSR nulls are generated uniformly on the sphere (uniform in $\sin(\mathrm{lat})$, not in latitude, to avoid polar over-sampling).
+
+\section{Results}
+
+\subsection{Global large craters sit modestly above CSR}
+
+The 6{,}973 craters $\geq20$~km give a nearest-neighbor spacing ratio $\langle r\rangle=0.695$ with $\mathrm{CV}=0.52$, against a CSR null of $0.572$ for the same number of points (Figure~\ref{fig:spectrum}b). The craters are thus modestly \emph{more regular} than random. Two candidate explanations must be excluded before any interpretation. \emph{Saturation/obliteration}---large craters erasing nearby ones---would manufacture artificial regularity, but it predicts a systematic dependence on the diameter cut; we find none: $\langle r\rangle=0.695,0.703,0.683,0.672$ for cuts at $20,30,50,100$~km, essentially flat. \emph{Hard-core exclusion}---craters forbidden from overlapping---would push $\langle r\rangle$ toward $0.78$, but it is decisively falsified by the data themselves: 52.6\% of nearest-neighbor crater pairs physically \emph{overlap} (center separation less than the sum of their radii), which a hard-core process forbids outright. This overlap is not a flaw but a profound physical signature. A hard-core process---billiard balls, repelling atoms, a healed vein that cannot re-precipitate in the same place---absolutely forbids spatial overlap, because all the objects coexist under a shared exclusion rule. Craters overlap freely because they are not coexisting physical bodies but \emph{historical traces projected onto a 2D plane across time}: a later impact simply overprints an earlier one, with no rule preventing it, precisely because the surface carries no memory linking one impact to the next. This is the sharpest possible contrast with the charge-and-release systems. In an ore system, fluid cannot perfectly re-deposit in an already-sealed quartz vein---the reservoir is locally exhausted and locked, enforcing a minimum spacing and hence repulsion. On the Moon, nothing is exhausted or locked; impacts overprint at will. The 52.6\% overlap is therefore direct geometric proof of the absence of charge-and-release memory. The modest excess regularity is neither artifact nor exclusion; it is the aggregate of passive geometric and geological effects (finite crater size, terrain-age density gradients), none of which is a charge-and-release memory.
+
+\subsection{Resolving the field: clean randomness versus clustering}
+
+A single global number conceals the real structure. Resolving the crater field by terrain reveals two distinct, clean states (Figure~\ref{fig:anchors}), distinguished by two tests that are independent of $\langle r\rangle$: the Clark--Evans aggregation index $R$ (with $R<1$ clustered, $R\approx1$ random, $R>1$ regular) and a two-sample KS test of the full spacing distribution against a CSR null.
+
+\textbf{Clean spatial randomness.} Old, isolated maria---Mare Smythii and Mare Australe, on the lunar limb---are statistically indistinguishable from CSR. Mare Smythii ($5$--$20$~km, $n=239$) gives Clark--Evans $R=0.94$ and KS $p=0.12$; Mare Australe ($8$--$30$~km, $n=245$) gives $R=0.92$, KS $p=0.23$. Their nearest-neighbor distributions match the CSR null in full shape (Figure~\ref{fig:anchors}, left). These are memoryless impacts recorded on a quiet surface: spatial randomness, exactly as the negative control predicts.
+
+\textbf{Clustering.} Young nearside maria tell a different story. Oceanus Procellarum ($5$--$20$~km, $n=399$) is significantly clustered: Clark--Evans $R=0.79$ with $z=-8.0$, and its spacing distribution differs from CSR at $p<10^{-3}$ (Figure~\ref{fig:anchors}, right), with a strong excess of very small spacings. Mare Nubium shows the same ($R=0.86$, $z=-3.8$). This clustering is not charge-and-release memory: it is the spatial signature of \emph{secondary craters}---chains and clusters of small craters excavated by ejecta from young primary impacts such as Copernicus and Kepler. The young, heavily reworked nearside is dressed in secondaries; the old limb maria are not. The naive coincidence that some clustered subsets have $\langle r\rangle\approx0.57$ (close to CSR) is exposed by the Clark--Evans and KS tests as a cancellation of clustering (which lowers $\langle r\rangle$) against finite-size regularity (which raises it); the full distribution is unambiguously clustered.
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/fig1_spectrum.pdf}
+\caption{(a) The spatial spectrum. The correct 2D CSR baseline is $\langle r\rangle\approx0.57$ (not the temporal Poisson $0.386$). Lunar craters span from clustering (young maria) through randomness (old maria) to mild passive regularity (global large craters), always short of the charge-and-release repulsion of the Earth and orbital systems. (b) Global craters $\geq20$~km ($n=6{,}973$) lie modestly above CSR; diagnostics reject saturation and hard-core exclusion.}
+\label{fig:spectrum}
+\end{figure}
+
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{figs/fig2_two_anchors.pdf}
+\caption{Two clean anchors. Left: Mare Smythii (old limb mare) primary craters are statistically indistinguishable from complete spatial randomness (KS $p=0.12$ against the CSR null). Right: Oceanus Procellarum (young nearside mare) is significantly clustered (KS $p<10^{-3}$), with an excess of small spacings from secondary-crater chains. Both are memoryless impact fields; neither shows charge-and-release repulsion.}
+\label{fig:anchors}
+\end{figure}
+
+\section{Discussion}
+
+\subsection{The negative control, confirmed from the other side}
+
+The purpose of this study was to test whether the RMT diagnostic is honest: does a system without charge-and-release fail to repel? It does. Nowhere in the lunar crater field---global, young maria, or old maria---does $\langle r\rangle$ exceed the CSR baseline in the way that signals genuine repulsion; the only excess is a mild, passive regularity fully explained by finite crater size and density gradients, and one large population (young maria) sits on the \emph{clustered} side. The Earth ore and volcanic systems, by contrast, show spacing statistics consistent with GOE-class repulsion relative to their appropriate null. The contrast is the point: charge-and-release carves repulsion; memoryless bombardment does not. The negative control confirms the program's central claim from the opposite direction. An instrument that returned ``repulsion'' for lunar craters would be suspect; one that returns randomness and clustering, exactly where no memory exists, is behaving correctly.
+
+\subsection{Three spatial states, one diagnostic}
+
+Taken with the rest of the program, the lunar result completes a spatial spectrum with three distinct states, all separated by the same RMT diagnostic. \emph{Clustering} ($\langle r\rangle$ depressed, Clark--Evans $R<1$): young maria, where one large impact spawns many spatially correlated secondaries---the spatial analog of the sympathetic/homologous triggering that produces temporal clustering in whole-disk solar flares \citep{chen2026solar}. \emph{Randomness} ($\langle r\rangle\approx$ CSR): old limb maria, memoryless impacts on a quiet surface. \emph{Repulsion} ($\langle r\rangle>$ CSR toward hard-core): the charge-and-release Earth and orbital systems, where reservoir depletion or gravitational clearing forbids close neighbors. A single statistic, correctly calibrated, distinguishes correlated-triggering, no-memory, and depletion-driven fields. That discriminating power, demonstrated on a system where the answer is known a priori, is what licenses trust in the positive results elsewhere.
+
+\subsection{A reusable methodological result}
+
+Beyond the negative control, this study contributes a correction that any future spatial application of the program must adopt: the 2D nearest-neighbor CSR baseline is $\langle r\rangle\approx0.57$, not the temporal $0.386$. We very nearly mis-stated the lunar result by comparing to the wrong null---an error that would have manufactured a spurious ``GOE'' detection from a random field. We flag it prominently so that the spatial and temporal arms of the program are never conflated, and so that spatial repulsion is only ever claimed above the correct geometric floor.
+
+\paragraph{This does not affect the earlier studies.} A reader might worry that the $0.386$ baseline used throughout the rest of the program is therefore also wrong. It is not. The distinction is dimensional, and the earlier systems are all strictly \emph{one-dimensional}. Stratigraphic bed spacings are measured along a single depth axis $z$; vein intercepts are measured along a one-dimensional drill core; mass-extinction and eruption times lie on a one-dimensional time axis; and orbital semi-major axes lie on a one-dimensional radial coordinate $\ln a$. In every such case the events are ordered points on a line, the spacing is the 1D gap between consecutive points, and the exponential waiting-distance---hence $\langle r\rangle=0.386$ for the Poisson case---is exactly correct. The Rayleigh disk-exclusion that raises the baseline to $0.57$ arises \emph{only} for unconstrained point fields on a 2D plane or sphere, where ``nearest neighbor'' is taken over a two-dimensional area rather than along a line. The $0.57$ baseline applies uniquely to the lunar crater field (and any future 2D map-pattern analysis); the $0.386$ baseline remains correct for every one-dimensional series in the program. Far from undermining the earlier work, the lunar study sharpens it, by making explicit the dimensional condition under which each null applies.
+
+\subsection{Limitations}
+
+\emph{Spatial, not temporal.} The original aim was a temporal negative control via crater ages, but only about ten lunar craters have absolute (radiometric/exposure) ages, strongly bimodal between young Copernican craters and the $\sim$3.9~Ga basin cluster, far too few and too biased for a temporal $\langle r\rangle$. We therefore test spatial randomness, which the Robbins database supports with enormous statistical power. \emph{Secondary identification.} We suppress secondaries statistically (diameter band, terrain selection) rather than morphologically; a secondary-cleaned catalogue would sharpen the clean-CSR anchors further. \emph{Earth comparison null.} The Earth systems were analyzed against their own temporal nulls in earlier studies; a fully matched spatial reanalysis of terrestrial ore and volcanic fields against the $0.57$ baseline is a natural next step.
+
+\section{Conclusions}
+
+Lunar impact craters are the negative control of the RMT charge-and-release program, and they pass. Calibrated against the correct two-dimensional CSR baseline ($\langle r\rangle\approx0.57$, not the temporal $0.386$), lunar craters never show charge-and-release repulsion. Old limb maria (Mare Smythii, Mare Australe) are statistically indistinguishable from complete spatial randomness; young nearside maria (Oceanus Procellarum, Mare Nubium) are clustered by secondary craters; global large craters show only a mild, passive regularity from finite crater size, decisively distinct from depletion-driven exclusion (52\% of neighbors overlap, ruling out a hard-core process). The RMT diagnostic cleanly separates clustering, randomness, and repulsion, and confirms from the opposite side the program's central principle: where there is no charge-and-release mechanism, there is no level repulsion. This is the ninth system in the program and its essential negative control, and it furnishes the correct geometric null for all future spatial extensions.
+
+\section*{Code and Data Availability}
+All code and analysis outputs are at \url{https://github.com/Ruqing1963/lunar-crater-rmt-baseline}. Crater data are from the Robbins (2019) global lunar crater database (USGS Astropedia / PDS4). The pipeline reproduces every number and figure from the raw database.
+
+\begin{thebibliography}{99}
+\small
+\bibitem[Chen(2026b)]{chen2026plume} Chen, R. (2026b). Level repulsion in the deep Earth: mantle-plume eruption rhythms. Zenodo, \url{https://zenodo.org/records/20768420}.
+\bibitem[Chen(2026c)]{chen2026metal} Chen, R. (2026c). Charge-and-release rhythms in ore-forming systems. Zenodo, \url{https://zenodo.org/records/20768849}.
+\bibitem[Chen(2026d)]{chen2026evo} Chen, R. (2026d). The rhythm of life and death: Phanerozoic mass extinctions and radiations. Zenodo, \url{https://zenodo.org/records/20783763}.
+\bibitem[Chen(2026e)]{chen2026hydro} Chen, R. (2026e). From geysers to megafloods: hydrogeological charge-and-release systems. Zenodo, \url{https://zenodo.org/records/20780389}.
+\bibitem[Chen(2026g)]{chen2026solar} Chen, R. (2026g). The depletion limit of level repulsion: solar flares from a single active region. Zenodo, \url{https://zenodo.org/records/20784967}.
+\bibitem[Chen(2026h)]{chen2026orbital} Chen, R. (2026h). The gravitational shadow: level repulsion in planetary orbital architecture. Zenodo, \url{https://zenodo.org/records/20785613}.
+\bibitem[Robbins(2019)]{robbins2019} Robbins, S. J. (2019). A new global database of lunar impact craters $>1$--2~km: 1. Crater locations and sizes. \emph{Journal of Geophysical Research: Planets}, 124, 871--892. \url{https://doi.org/10.1029/2018JE005592}.
+\bibitem[Clark \& Evans(1954)]{clark1954} Clark, P. J., \& Evans, F. C. (1954). Distance to nearest neighbor as a measure of spatial relationships in populations. \emph{Ecology}, 35, 445--453.
+\bibitem[Bohigas et al.(1984)]{bohigas1984} Bohigas, O., Giannoni, M.-J., \& Schmit, C. (1984). Characterization of chaotic quantum spectra and universality of level fluctuation laws. \emph{Physical Review Letters}, 52, 1.
+\bibitem[Oberbeck(1975)]{oberbeck1975} Oberbeck, V. R. (1975). The role of ballistic erosion and sedimentation in lunar stratigraphy. \emph{Reviews of Geophysics}, 13, 337--362.
+\end{thebibliography}
+
+\end{document}

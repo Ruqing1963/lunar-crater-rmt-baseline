@@ -1,0 +1,97 @@
+{
+  "global_20km": {
+    "label": "All craters >=20 km (global)",
+    "n": 6973,
+    "r": 0.6948,
+    "r_se": 0.0028,
+    "ci": [
+      0.6192964704383069,
+      0.6317502860392186
+    ],
+    "cv": 0.5173,
+    "note": "global, mixes terrains"
+  },
+  "csr_null_global": {
+    "label": "CSR null (uniform sphere, same N)",
+    "n": 6973,
+    "r": 0.5716,
+    "r_se": 0.003,
+    "ci": [
+      0.5640863213033325,
+      0.5775812105999433
+    ],
+    "cv": 0.5244
+  },
+  "smythii_clean": {
+    "label": "Mare Smythii (old edge) 5-20km \u2014 CLEAN CSR",
+    "n": 239,
+    "r": 0.6689,
+    "r_se": 0.0155,
+    "ci": [
+      0.5674312755848631,
+      0.6341835597420327
+    ],
+    "cv": 0.5904,
+    "clark_evans_R": 0.9408,
+    "clark_evans_z": -1.75,
+    "ks_vs_csr": 0.1088,
+    "ks_p": 0.1182,
+    "verdict": "clean_CSR"
+  },
+  "australe_clean": {
+    "label": "Mare Australe 8-30km \u2014 CLEAN CSR",
+    "n": 245,
+    "r": 0.652,
+    "r_se": 0.0155,
+    "ci": [
+      0.5685119504665586,
+      0.6383246628605741
+    ],
+    "cv": 0.5902,
+    "clark_evans_R": 0.9232,
+    "clark_evans_z": -2.3,
+    "ks_vs_csr": 0.0939,
+    "ks_p": 0.2308,
+    "verdict": "clean_CSR"
+  },
+  "procellarum_clustered": {
+    "label": "Oceanus Procellarum (young) 5-20km \u2014 CLUSTERED",
+    "n": 399,
+    "r": 0.5763,
+    "r_se": 0.014,
+    "ci": [
+      0.4384224216903548,
+      0.49599875585414094
+    ],
+    "cv": 0.931,
+    "clark_evans_R": 0.7881,
+    "clark_evans_z": -8.1,
+    "ks_vs_csr": 0.2732,
+    "ks_p": 0.0,
+    "verdict": "clustered"
+  },
+  "nubium_clustered": {
+    "label": "Mare Nubium 5-20km \u2014 CLUSTERED",
+    "n": 156,
+    "r": 0.5989,
+    "r_se": 0.0211,
+    "ci": [
+      0.4646257175175023,
+      0.5559930055050331
+    ],
+    "cv": 0.8737,
+    "clark_evans_R": 0.8557,
+    "clark_evans_z": -3.45,
+    "ks_vs_csr": 0.1987,
+    "ks_p": 0.0041,
+    "verdict": "clustered"
+  },
+  "baselines": {
+    "temporal_poisson": 0.386,
+    "csr_2d": 0.57,
+    "goe": 0.531,
+    "gue": 0.603,
+    "hardcore": 0.776
+  },
+  "overlap_fraction_global": 0.526
+}

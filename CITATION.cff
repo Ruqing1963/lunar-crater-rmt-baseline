@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this work, please cite it as below."
+title: "The Passive Baseline: Why Lunar Impact Cratering is Not Charge-and-Release"
+authors:
+  - family-names: "Chen"
+    given-names: "Ruqing"
+    affiliation: "GUT Geoservice Inc., Montreal, Canada"
+    email: ruqing@hotmail.com
+date-released: 2026-06-21
+license: MIT
+repository-code: "https://github.com/Ruqing1963/lunar-crater-rmt-baseline"
+keywords:
+  - random matrix theory
+  - negative control
+  - lunar craters
+  - complete spatial randomness
+  - secondary craters
